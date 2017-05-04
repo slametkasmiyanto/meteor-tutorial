@@ -8,3 +8,24 @@ Template.body.helpers({
     return Tasks.find({});
   },
 });
+
+Template.body.events({
+    'submit .new-task'(event){
+
+    // prevent default browser form submit
+    event.preventDefault();
+
+    // get value from form element
+    const target = event.target;
+    const text = target.text.value;
+
+    // insert a task into the Collection
+    Tasks.insert({
+      text,
+      createdAt: new Date(), // get current time
+    });
+
+    // clear the form
+    target.text.value = '';
+  },
+});
